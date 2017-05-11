@@ -1,4 +1,4 @@
-module.exports = {
+let config = {
     entry: './src/index.js',
 
     output: {
@@ -17,5 +17,9 @@ module.exports = {
                 exclude: /node_modules/,
             }
         ]
+    },
+    resolve: {
+        root: require("path").resolve('./src')
     }
 };
+export default config;
