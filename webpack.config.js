@@ -1,6 +1,8 @@
-let config = {
-    entry: './src/index.js',
-
+module.exports = {
+    entry: [
+        './src/index.js',
+        './src/style.css'
+    ],
     output: {
         path: __dirname + '/public/',
         filename: 'bundle.js'
@@ -15,6 +17,10 @@ let config = {
                     presets: ['es2015', 'react']
                 })],
                 exclude: /node_modules/,
+            },
+            {
+                test: /\.css$/,
+                loader: 'style!css-loader'
             }
         ]
     },
@@ -22,4 +28,3 @@ let config = {
         root: require("path").resolve('./src')
     }
 };
-export default config;

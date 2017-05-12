@@ -15,11 +15,12 @@ app.use(bodyParser.json());
 import mongoose from 'mongoose';
 import session from 'express-session';
 
+console.log(process.env.NODE_ENV);
 const db = mongoose.connection;
 db.on('error', console.error);
-db.once('open',()=>{ console.log('Connected to mongoDB server') });
+db.once('open',()=>{ console.log('Connected to mongoDb server') });
 
-mongoose.connect('mongodb://bluestone:hasunoong@ds157987.mlab.com:57987/note-pad');
+mongoose.connect('mongodb://bluestone:hasunoong1@ds157987.mlab.com:57987/note-pad');
 
 app.use(session({
     secret: 'CodeLab1$1$1234',
@@ -29,7 +30,7 @@ app.use(session({
 app.use('/', express.static(path.join(__dirname, './../public')));
 
 
-import api from '/routes';
+import api from './routes';
 app.use('/api',api);
 
 app.listen(port,()=>{

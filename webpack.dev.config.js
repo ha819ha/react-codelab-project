@@ -1,15 +1,18 @@
-import webpack from 'webpack';
+var webpack = require('webpack');
 
-let devConfig = {
+module.exports = {
+
     entry: [
         './src/index.js',
         'webpack-dev-server/client?http://0.0.0.0:4000',
         'webpack/hot/only-dev-server'
     ],
+
     output: {
         path: '/',
         filename: 'bundle.js'
     },
+
     devServer: {
         hot: true,
         filename: 'bundle.js',
@@ -17,9 +20,10 @@ let devConfig = {
         historyApiFallback: true,
         contentBase: './public',
         proxy: {
-            "**": "http://localhost:3000"
+            "*": "http://localhost:3000"
         },
         stats: {
+            // Config for minimal console.log mess.
             assets: false,
             colors: true,
             version: false,
@@ -29,11 +33,12 @@ let devConfig = {
             chunkModules: false
         }
     },
+
+
     plugins: [
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.HotmoduleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.HotModuleReplacementPlugin()
     ],
+
     module: {
         loaders: [
             {
@@ -43,12 +48,14 @@ let devConfig = {
                     presets: ['es2015', 'react']
                 })],
                 exclude: /node_modules/,
+            },
+            {
+                test: /\.css$/,
+                loader: 'style!css-loader'
             }
         ]
     },
     resolve: {
         root: require("path").resolve('./src')
     }
-}
-
-export default devConfig;
+};
